@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //late TabController _tabController;
   List<Widget> myTabs = [
     //Donuts Tab
     const MyTab(
@@ -36,6 +37,21 @@ class _HomePageState extends State<HomePage> {
       iconName: "Pizzas",
     ),
   ];
+
+  Widget DonutTab(TabController? controller) =>
+      const Center(child: Text('Donuts'));
+
+  Widget BurgerTab(TabController? controller) =>
+      const Center(child: Text('Burger'));
+
+  Widget SmoothieTab(TabController? controller) =>
+      const Center(child: Text('Smoothies'));
+
+  Widget PancakeTab(TabController? controller) =>
+      const Center(child: Text('Pancakes'));
+
+  Widget PizzaTab(TabController? controller) =>
+      const Center(child: Text('Pizzas'));
 
   @override
   Widget build(BuildContext context) {
@@ -82,13 +98,22 @@ class _HomePageState extends State<HomePage> {
                 )),
             //2 Pestañas (TabBar)
             TabBar(
-              tabs: myTabs,
               isScrollable: true,
-              indicatorColor: Colors.transparent,
+              tabAlignment: TabAlignment.start,
+              //indicatorColor: Colors.transparent,
+              tabs: myTabs,
             ),
 
             //3 Contenido de pestañas(TabbarView)
-
+            Expanded(
+              child: TabBarView(children: [
+                DonutTab(null),
+                BurgerTab(null),
+                SmoothieTab(null),
+                PancakeTab(null),
+                PizzaTab(null)
+              ]),
+            ),
             //4 Carrito(Cart)
           ],
         ),
