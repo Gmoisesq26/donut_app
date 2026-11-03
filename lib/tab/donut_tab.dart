@@ -1,3 +1,4 @@
+import 'package:donut_app/utils/donut_tile.dart';
 import 'package:flutter/material.dart';
 
 class DonutTab extends StatelessWidget {
@@ -9,24 +10,24 @@ class DonutTab extends StatelessWidget {
       'Chocolate',
       '100',
       Colors.brown,
-      "lib/images/chocolate_donut.png",
+      "assets/images/chocolate_donut.png",
       'Starbucks',
     ],
     [
       'Strawberry',
       '89',
       Colors.red,
-      "lib/images/strawberry_donut.png",
+      "assets/images/strawberry_donut.png",
       'Krispy Kreme',
     ],
     [
       'Ice Cream',
       '95',
       Colors.blue,
-      "lib/images/icecream_donut.png",
+      "assets/images/icecream_donut.png",
       "Dunkin' Donuts",
     ],
-    ['Grape', '70', Colors.purple, "lib/images/grape_donut.png", 'Oxxo']
+    ['Grape', '70', Colors.purple, "assets/images/grape_donut.png", 'Oxxo']
   ];
 
   @override
@@ -35,20 +36,22 @@ class DonutTab extends StatelessWidget {
       //Se encarga de acomodar los elementos dentro del grid
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           //Tamaño de cada columna
-          childAspectRatio: 1 / 1.5,
+          childAspectRatio: 1 / 1.9,
 
           //Cantidad de columnas
           crossAxisCount: 2),
       //Cantidad de productos que se van a mostrar
       itemCount: donutOnsale.length,
       //lo que se va a construir
-      itemBuilder: DonutTitle(
-        donutFlavor: donutOnsale[index][0],
-        donutPrice: donutOnsale[index][1],
-        donutColor: donutOnsale[index][2],
-        donutImagePath: donutOnsale[index][3],
-        donutProvider: donutOnsale[index][4],
-      ),
+      itemBuilder: (context, index) {
+        return DonutTile(
+          donutFlavor: donutOnsale[index][0],
+          donutPrice: donutOnsale[index][1],
+          donutColor: donutOnsale[index][2],
+          donutImagePath: donutOnsale[index][3],
+          donutProvider: donutOnsale[index][4],
+        );
+      },
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:donut_app/utils/my_tab.dart';
 import 'package:flutter/material.dart';
+import '../tab/donut_tab.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,8 +39,8 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
-  Widget DonutTab(TabController? controller) =>
-      const Center(child: Text('Donuts'));
+//  Widget DonutTab(TabController? controller) =>
+//      const Center(child: Text('Donuts'));
 
   Widget BurgerTab(TabController? controller) =>
       const Center(child: Text('Burger'));
@@ -107,7 +108,7 @@ class _HomePageState extends State<HomePage> {
             //3 Contenido de pestañas(TabbarView)
             Expanded(
               child: TabBarView(children: [
-                DonutTab(null),
+                DonutTab(),
                 BurgerTab(null),
                 SmoothieTab(null),
                 PancakeTab(null),
