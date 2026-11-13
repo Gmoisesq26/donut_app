@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "304123715260",
+    "project_id": "donut-app-569cf",
+    "storage_bucket": "donut-app-569cf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304123715260:android:9607ec087f641a39c5bab9",
+        "android_client_info": {
+          "package_name": "com.example.donut_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvu2UDEPFVBtfDtYvj7msMr5kTTVShuxA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
