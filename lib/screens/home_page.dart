@@ -1,6 +1,7 @@
 import 'package:donut_app/utils/my_tab.dart';
 import 'package:flutter/material.dart';
 import '../tab/donut_tab.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +11,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // Cerrar sesión de Firebase
+  Future<void> cerrarSesion() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error al cerrar sesión: $e'),
+        ),
+      );
+    }
+  }
+
   //late TabController _tabController;
   List<Widget> myTabs = [
     //Donuts Tab
@@ -69,9 +85,46 @@ class _HomePageState extends State<HomePage> {
           //Icono de la derecha
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 24.0),
-              child: Icon(Icons.person, color: Colors.grey),
-            )
+              padding: const EdgeInsets.only(right: 15.0),
+              child: PopupMenuButton<String>(
+                icon: const Icon(
+                  Icons.person,
+                  color: Colors.grey,
+                  size: 28,
+                ),
+                color: Colors.white,
+                elevation: 8,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                onSelected: (value) async {
+                  if (value == 'logout') {
+                    await cerrarSesion();
+                  }
+                },
+                itemBuilder: (context) => [
+                  const PopupMenuItem<String>(
+                    value: 'logout',
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          color: Colors.red,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'Cerrar sesión',
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
         body: Column(

@@ -1,5 +1,7 @@
+import 'package:donut_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'firebase_options.dart';
 import 'screens/home_page.dart';
@@ -27,8 +29,8 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const ConnectionScreen(),
       debugShowCheckedModeBanner: false,
+      home: const ConnectionScreen(),
     );
   }
 }
@@ -38,12 +40,8 @@ class ConnectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<FirebaseApp>(
-      future: Firebase.apps.isEmpty
-          ? Firebase.initializeApp(
-              options: DefaultFirebaseOptions.currentPlatform,
-            )
-          : Future.value(Firebase.app()),
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
@@ -56,15 +54,16 @@ class ConnectionScreen extends StatelessWidget {
         if (snapshot.hasError) {
           return Scaffold(
             body: Center(
-              child: Text(
-                'Error al conectar Firebase:\n${snapshot.error}',
-                textAlign: TextAlign.center,
-              ),
+              child: Text('Error: ${snapshot.error}'),
             ),
           );
         }
 
-        return const HomePage();
+        if (snapshot.hasData) {
+          return const HomePage();
+        }
+
+        return const LoginScreen();
       },
     );
   }
