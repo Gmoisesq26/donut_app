@@ -2,6 +2,7 @@ import 'package:donut_app/utils/my_tab.dart';
 import 'package:flutter/material.dart';
 import '../tab/donut_tab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'messages_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -24,6 +25,15 @@ class _HomePageState extends State<HomePage> {
         ),
       );
     }
+  }
+
+  void abrirMensajes() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const MessagesScreen(),
+      ),
+    );
   }
 
   //late TabController _tabController;
@@ -98,11 +108,25 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 onSelected: (value) async {
+                  if (value == 'messages') {
+                    abrirMensajes();
+                  }
+
                   if (value == 'logout') {
                     await cerrarSesion();
                   }
                 },
                 itemBuilder: (context) => [
+                  const PopupMenuItem<String>(
+                    value: 'messages',
+                    child: Row(
+                      children: [
+                        Icon(Icons.message, color: Colors.blue),
+                        SizedBox(width: 10),
+                        Text('Mis mensajes'),
+                      ],
+                    ),
+                  ),
                   const PopupMenuItem<String>(
                     value: 'logout',
                     child: Row(
