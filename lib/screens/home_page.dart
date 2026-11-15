@@ -7,6 +7,9 @@ import '../tab/pizza_tab.dart';
 import '../tab/smoothie_tab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'messages_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:donut_app/models/cart_model.dart';
+import 'cart_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -197,10 +200,11 @@ class _HomePageState extends State<HomePage> {
               ]),
             ),
             //4 Carrito(Cart)
-            Container(
-              color: Colors.white,
-              padding: EdgeInsets.all(16),
-              child: Row(
+            Consumer<CartModel>(
+              builder: (context, cart, _) => Container(
+                color: Colors.white,
+                padding: const EdgeInsets.all(16),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
@@ -209,31 +213,40 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            ' 2 items | \$45 ',
-                            style: TextStyle(
+                            '${cart.totalItems} items | \$${cart.totalPrice.toStringAsFixed(2)}',
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),
                           ),
-                          Text('Delivery charges included',
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
+                          const Text(
+                            'Delivery charges included',
+                            style: TextStyle(fontSize: 12),
+                          ),
                         ],
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => const CartScreen()),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.pink[400],
                       ),
-                      child: Text('View cart',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          )),
-                    )
-                  ]),
+                      child: const Text(
+                        'View cart',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
         ),

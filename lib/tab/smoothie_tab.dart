@@ -45,7 +45,7 @@ class SmoothieTab extends StatelessWidget {
       //Se encarga de acomodar los elementos dentro del grid
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           //Tamaño de cada columna
-          childAspectRatio: 1 / 1.9,
+          childAspectRatio: 1 / 1.95,
 
           //Cantidad de columnas
           crossAxisCount: 2),

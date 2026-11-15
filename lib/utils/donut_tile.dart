@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:donut_app/models/cart_model.dart';
 
 class DonutTile extends StatelessWidget {
   final String donutFlavor;
@@ -107,14 +109,37 @@ class DonutTile extends StatelessWidget {
                     Icons.favorite_border,
                     color: Colors.pink[400],
                   ),
-                  Text(
-                    'Add',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      decoration: TextDecoration.underline,
+                  InkWell(
+                    onTap: () {
+                      context.read<CartModel>().add(
+                            CartItem(
+                              name: donutFlavor,
+                              price: double.tryParse(donutPrice) ?? 0,
+                              imagePath: donutImagePath,
+                              provider: donutProvider,
+                            ),
+                          );
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(
+                          SnackBar(
+                            content: Text('$donutFlavor agregado al carrito'),
+                            duration: const Duration(seconds: 1),
+                          ),
+                        );
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Text(
+                        'Add',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          decoration: TextDecoration.underline,
+                        ),
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

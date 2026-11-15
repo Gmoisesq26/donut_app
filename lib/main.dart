@@ -7,6 +7,9 @@ import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 import 'firebase_options.dart';
 import 'screens/home_page.dart';
 
+import 'package:provider/provider.dart';
+import 'package:donut_app/models/cart_model.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -19,7 +22,12 @@ void main() async {
     anonKey: 'sb_publishable_fHPZ-8cWi5YAReLYzVZixg_vLt8zn1R',
   );
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => CartModel(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
