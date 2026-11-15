@@ -1,6 +1,10 @@
 import 'package:donut_app/utils/my_tab.dart';
 import 'package:flutter/material.dart';
 import '../tab/donut_tab.dart';
+import '../tab/burger_tab.dart';
+import '../tab/pancake_tab.dart';
+import '../tab/pizza_tab.dart';
+import '../tab/smoothie_tab.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'messages_screen.dart';
 
@@ -68,17 +72,17 @@ class _HomePageState extends State<HomePage> {
 //  Widget DonutTab(TabController? controller) =>
 //      const Center(child: Text('Donuts'));
 
-  Widget BurgerTab(TabController? controller) =>
-      const Center(child: Text('Burger'));
+//  Widget BurgerTab(TabController? controller) =>
+//      const Center(child: Text('Burger'));
 
-  Widget SmoothieTab(TabController? controller) =>
-      const Center(child: Text('Smoothies'));
+//  Widget SmoothieTab(TabController? controller) =>
+//      const Center(child: Text('Smoothies'));
 
-  Widget PancakeTab(TabController? controller) =>
-      const Center(child: Text('Pancakes'));
+//  Widget PancakeTab(TabController? controller) =>
+//      const Center(child: Text('Pancakes'));
 
-  Widget PizzaTab(TabController? controller) =>
-      const Center(child: Text('Pizzas'));
+//  Widget PizzaTab(TabController? controller) =>
+//      const Center(child: Text('Pizzas'));
 
   @override
   Widget build(BuildContext context) {
@@ -186,10 +190,10 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: TabBarView(children: [
                 DonutTab(),
-                BurgerTab(null),
-                SmoothieTab(null),
-                PancakeTab(null),
-                PizzaTab(null)
+                BurgerTab(),
+                SmoothieTab(),
+                PancakeTab(),
+                PizzaTab()
               ]),
             ),
             //4 Carrito(Cart)

@@ -2,6 +2,7 @@ import 'package:donut_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide User;
 
 import 'firebase_options.dart';
 import 'screens/home_page.dart';
@@ -11,6 +12,11 @@ void main() async {
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await Supabase.initialize(
+    url: 'https://nifkftjdqtrdnghbizlp.supabase.co',
+    anonKey: 'sb_publishable_fHPZ-8cWi5YAReLYzVZixg_vLt8zn1R',
   );
 
   runApp(const MyApp());

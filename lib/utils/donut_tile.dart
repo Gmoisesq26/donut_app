@@ -58,7 +58,23 @@ class DonutTile extends StatelessWidget {
                 vertical: 12.0,
                 horizontal: 24.0,
               ),
-              child: Image.asset(donutImagePath),
+              //child: Image.asset(donutImagePath),
+              child: Image.network(
+                donutImagePath,
+                height: 120,
+                fit: BoxFit.contain,
+                cacheHeight: 240,
+                loadingBuilder: (context, child, progress) {
+                  if (progress == null) return child;
+                  return const SizedBox(
+                    height: 120,
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(donutImagePath);
+                },
+              ),
             ),
             //Nombre de la dona
             Text(
