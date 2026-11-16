@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rive/rive.dart';
+import 'package:donut_app/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -229,6 +230,50 @@ class LoginScreenState extends State<LoginScreen> {
 
       _isTrigFail?.fire();
       _showMessage('No se pudo crear la cuenta.');
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  // INICIAR SESIÓN CON GOOGLE
+  Future<void> _onGoogleLogin() async {
+    if (_isLoading) return;
+
+    FocusScope.of(context).unfocus();
+    _resetRive();
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      final result = await AuthService.signInWithGoogle();
+
+      if (!mounted) return;
+
+      // result == null significa que el usuario canceló el selector de cuentas
+      if (result != null) {
+        _isTrigSuccess?.fire();
+      }
+
+      // main.dart detecta el usuario con authStateChanges()
+      // y muestra HomePage automáticamente.
+    } on FirebaseAuthException catch (error) {
+      if (!mounted) return;
+
+      _isTrigFail?.fire();
+      _showMessage(_firebaseErrorMessage(error));
+    } catch (error, stack) {
+      if (!mounted) return;
+
+      debugPrint('Error Google Sign-In: $error');
+      debugPrint('$stack');
+      _isTrigFail?.fire();
+      _showMessage('Error: $error');
     } finally {
       if (mounted) {
         setState(() {
@@ -465,6 +510,59 @@ class LoginScreenState extends State<LoginScreen> {
                 ),
 
                 const SizedBox(height: 20),
+
+                const SizedBox(height: 16),
+
+                // SEPARADOR
+                Row(
+                  children: const [
+                    Expanded(child: Divider()),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Text('o'),
+                    ),
+                    Expanded(child: Divider()),
+                  ],
+                ),
+
+                const SizedBox(height: 16),
+
+                // BOTÓN GOOGLE
+                SizedBox(
+                  width: size.width,
+                  height: 50,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      side: BorderSide(color: Colors.grey.shade400),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: _isLoading ? null : _onGoogleLogin,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'G',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                        ),
+                        SizedBox(width: 12),
+                        Text(
+                          'Continuar con Google',
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
 
                 // REGISTRO
                 Row(

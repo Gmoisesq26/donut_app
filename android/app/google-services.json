@@ -12,7 +12,20 @@
           "package_name": "com.example.donut_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "304123715260-nif9acesk2jvbnhikkfebmp04q0akbuk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.donut_app",
+            "certificate_hash": "0ab5797240c54591e0516ba02c3ab5f16ba2ec45"
+          }
+        },
+        {
+          "client_id": "304123715260-qdeubsje12et1sgvs3fop9m3ofd1pnp7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBvu2UDEPFVBtfDtYvj7msMr5kTTVShuxA"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "304123715260-qdeubsje12et1sgvs3fop9m3ofd1pnp7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "304123715260-8k1h3pv15o0dt8g90tl5t2bc95mkf6vr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.donutApp"
+              }
+            }
+          ]
         }
       }
     }
